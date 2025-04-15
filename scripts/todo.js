@@ -1,21 +1,24 @@
 let todoArray = [];
 let todoId = 0;
-let currentFilter = 'all';
+let currentFilter = "all";
 const localTodo = "local-todo";
 
 const todoInput = document.getElementById("todo-input");
 const todoList = document.getElementById("todo-list");
 const itemsLeft = document.getElementById("items-left");
 const todoFilters = document.querySelectorAll("input[name='filter']");
-const clearCompleted = document.getElementById('clear-completed');
+const clearCompleted = document.getElementById("clear-completed");
 
-const themeSwitch = document.getElementById('theme-toggle');
-const themeImg = document.querySelectorAll('.theme-change img');
+const themeSwitch = document.getElementById("theme-toggle");
+const themeImg = document.querySelectorAll(".theme-change img");
 
-clearCompleted.addEventListener('click', () => {
+clearCompleted.addEventListener("click", () => {
   const toRemove = todoArray.filter((obj) => obj.active === false);
 
-  if (toRemove.length > 0 && confirm(`Remove ${toRemove.length} completed task.`)) {
+  if (
+    toRemove.length > 0 &&
+    confirm(`Remove ${toRemove.length} completed task.`)
+  ) {
     toRemove.forEach((todo) => {
       removeTodo(todo.DOMelem);
     });
@@ -28,18 +31,18 @@ todoInput.addEventListener("keyup", (e) => {
       addTodo(e.target.value);
       refreshFilters();
     }
-    todoInput.value = '';
+    todoInput.value = "";
   }
 });
 
 todoFilters.forEach((filter) => {
-  filter.addEventListener('change', filterCallback);
+  filter.addEventListener("change", filterCallback);
 });
 
-themeSwitch.addEventListener('click', themeSwitcher);
+themeSwitch.addEventListener("click", themeSwitcher);
 
 function themeSwitcher(e) {
-  themeImg.forEach(logo => logo.classList.toggle("todo-theme"));
+  themeImg.forEach((logo) => logo.classList.toggle("todo-theme"));
 
   if (document.body.dataset.theme === "darkTheme") {
     document.body.dataset.theme = "whiteTheme";
@@ -54,9 +57,9 @@ function filterCallback(e) {
 }
 
 function refreshFilters() {
-  if (currentFilter === 'completed') {
+  if (currentFilter === "completed") {
     completedTodo();
-  } else if (currentFilter === 'all') {
+  } else if (currentFilter === "all") {
     allTodo();
   } else {
     activeTodo();
@@ -67,8 +70,10 @@ function completedTodo() {
   todoArray.forEach(function (arrayObj) {
     if (!arrayObj.active && arrayObj.DOMelem.classList.contains("todo-hide")) {
       arrayObj.DOMelem.classList.remove("todo-hide");
-    }
-    else if (arrayObj.active && !arrayObj.DOMelem.classList.contains("todo-hide")) {
+    } else if (
+      arrayObj.active &&
+      !arrayObj.DOMelem.classList.contains("todo-hide")
+    ) {
       arrayObj.DOMelem.classList.add("todo-hide");
     }
   });
@@ -86,8 +91,10 @@ function activeTodo() {
   todoArray.forEach(function (arrayObj) {
     if (arrayObj.active && arrayObj.DOMelem.classList.contains("todo-hide")) {
       arrayObj.DOMelem.classList.remove("todo-hide");
-    }
-    else if (arrayObj.active === false && !arrayObj.DOMelem.classList.contains("todo-hide")) {
+    } else if (
+      arrayObj.active === false &&
+      !arrayObj.DOMelem.classList.contains("todo-hide")
+    ) {
       arrayObj.DOMelem.classList.add("todo-hide");
     }
   });
@@ -162,14 +169,14 @@ function removeTodoDom(todo) {
 }
 
 function addTodo(todoText, newTodo = true) {
-  const newTodoList = document.createElement('li');
+  const newTodoList = document.createElement("li");
   newTodoList.classList.add("todo-item");
   newTodoList.id = "" + todoId;
   newTodoList.draggable = true;
   newTodoList.innerHTML = `
     <input type="checkbox" class="todo-checkbox" id="checkbox">
       <span class="todo-text" id="todo-text">${todoText}</span>
-      <button class="todo-delete"><img class="delete-img" src="../images/icon-cross.svg" alt=""/></button>
+      <button class="todo-delete"><img class="delete-img" src="./images/icon-cross.svg" alt=""/></button>
   `;
 
   if (newTodo) {
@@ -216,20 +223,22 @@ function createTodoList() {
     "Pick up groceries",
     "Complete Todo App on Frontend Mentor",
   ];
-  if (localStorage.getItem("isFirstVisit") === null || localStorage.getItem("isFirstVisit") === false) {
+  if (
+    localStorage.getItem("isFirstVisit") === null ||
+    localStorage.getItem("isFirstVisit") === false
+  ) {
     localStorage.setItem("isFirstVisit", true);
     starterList.forEach((item) => {
       addTodo(item);
     });
     changeActiveStatus();
     //todoArray[0].DOMelem
-  }
-  else {
+  } else {
     getLocalStorage();
   }
 }
 createTodoList();
-localStorage.clear()
+localStorage.clear();
 
 const sortableList = document.getElementById("todo-list");
 let draggedItem = null;
@@ -253,32 +262,29 @@ sortableList.addEventListener("dragover", (e) => {
   const afterElement = getDragAfterElement(sortableList, e.clientY);
   const currentElement = document.querySelector(".dragging");
   if (afterElement == null) {
-    sortableList.appendChild(
-      draggedItem
-    );
-  }
-  else {
-    sortableList.insertBefore(
-      draggedItem,
-      afterElement,
-    );
+    sortableList.appendChild(draggedItem);
+  } else {
+    sortableList.insertBefore(draggedItem, afterElement);
   }
 });
 
 const getDragAfterElement = (container, y) => {
-  const draggableElements = [...container.querySelectorAll("li:not(.dragging)")];
-  return draggableElements.reduce((closest, child) => {
-    const box = child.getBoundingClientRect();
-    const offset = y - box.top - box.height / 2;
-    if (offset < 0 && offset > closest.offset) {
-      return {
-        offset: offset,
-        element: child,
-      };
-    } else {
-      return closest;
-    }
-  },
+  const draggableElements = [
+    ...container.querySelectorAll("li:not(.dragging)"),
+  ];
+  return draggableElements.reduce(
+    (closest, child) => {
+      const box = child.getBoundingClientRect();
+      const offset = y - box.top - box.height / 2;
+      if (offset < 0 && offset > closest.offset) {
+        return {
+          offset: offset,
+          element: child,
+        };
+      } else {
+        return closest;
+      }
+    },
     {
       offset: Number.NEGATIVE_INFINITY,
     }

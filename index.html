@@ -1,72 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/todo.css" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="styles/todo.css">
+    <title>Frontend Mentor | Todo app</title>
+  </head>
 
-  <title>Frontend Mentor | Todo app</title>
+  <body data-theme="darkTheme">
+    <main>
+      <img src="./images/bg-desktop-dark.jpg" class="background" />
+      <img
+        src="./images/bg-desktop-light.jpg"
+        class="background-light"
+        hidden
+      />
+      <div class="wrapper">
+        <div class="todo">
+          <div class="todo-header">
+            <h2 class="todo-title">TODO</h2>
+            <button class="theme-change" id="theme-toggle">
+              <img
+                class="todo-theme"
+                src="./images/icon-moon.svg"
+                alt="Switch to light theme"
+              />
+              <img src="./images/icon-sun.svg" alt="Switch to dark theme" />
+            </button>
+          </div>
 
-</head>
+          <label class="create-todo">
+            <span class="circle"></span>
+            <input
+              type="text"
+              class="todo-input js-todo-input"
+              id="todo-input"
+              placeholder="Create a new todo..."
+            />
+          </label>
 
-<body data-theme="darkTheme">
-  <main>
-    <img src="./images/bg-desktop-dark.jpg" class="background">
-    <img src="./images/bg-desktop-light.jpg" class="background-light" hidden>
-    <div class="wrapper">
-      <div class="todo">
+          <div class="main-todo">
+            <ul class="todo-list js-todo-list" id="todo-list">
+              <!--todo list-->
+            </ul>
 
-        <div class="todo-header">
-          <h2 class="todo-title">TODO</h2>
-          <button class="theme-change" id="theme-toggle">
-            <img class="todo-theme" src="./images/icon-moon.svg" />
-            <img src="./images/icon-sun.svg" />
-          </button>
-        </div>
+            <div class="filters">
+              <div class="left-right">
+                <p>
+                  <span id="items-left" class="items-left">5</span> items left
+                </p>
+                <button class="clear-completed js-clear" id="clear-completed">
+                  Clear Completed
+                </button>
+              </div>
 
-        <label class="create-todo">
-          <span class="circle"></span>
-          <input type="text" class="todo-input js-todo-input" id="todo-input" placeholder="Create a new todo..." />
-        </label>
+              <div class="center">
+                <input
+                  type="radio"
+                  name="filter"
+                  id="all"
+                  value="all"
+                  class="radio-all js-radio"
+                  checked
+                />
+                <label class="radio-label" for="all">All</label>
 
-        <div class="main-todo">
-          <ul class="todo-list js-todo-list" id="todo-list">
-            <!--todo list-->
-          </ul>
+                <input
+                  type="radio"
+                  name="filter"
+                  id="active"
+                  value="active"
+                  class="radio-actice js-radio"
+                />
+                <label class="radio-label" for="active">Active</label>
 
-          <div class="filters">
-            <div class="left-right">
-              <p><span id="items-left" class="items-left">5</span> items left</p>
-              <button class="clear-completed js-clear" id="clear-completed">Clear Completed</button>
-            </div>
-
-            <div class="center">
-              <input type="radio" name="filter" id="all" value="all" class="radio-all js-radio" checked>
-              <label class="radio-label" for="all">All</label>
-
-              <input type="radio" name="filter" id="active" value="active" class="radio-actice js-radio">
-              <label class="radio-label" for="active">Active</label>
-
-              <input type="radio" name="filter" id="completed" value="completed" class="radio-compeleted js-radio">
-              <label class="radio-label" for="completed">Completed</label>
+                <input
+                  type="radio"
+                  name="filter"
+                  id="completed"
+                  value="completed"
+                  class="radio-compeleted js-radio"
+                />
+                <label class="radio-label" for="completed">Completed</label>
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="todo-footer">
-          <p>Drag and drop to reorder list</p>
+          <div class="todo-footer">
+            <p>Drag and drop to reorder list</p>
+          </div>
         </div>
       </div>
-    </div>
-  </main>
-  <script src="scripts/todo.js"></script>
-</body>
-
+    </main>
+    <script src="scripts/todo.js"></script>
+  </body>
 </html>
